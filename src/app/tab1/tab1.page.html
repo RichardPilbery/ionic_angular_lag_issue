@@ -1,0 +1,166 @@
+<ion-header >
+  <ion-toolbar color="primary">
+    <ion-title>
+      Calculate BATT
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>  
+  <form [formGroup]="batsForm" (ngSubmit)="submitForm()" novalidate>
+        <!-- Inputs with labels -->
+      <ion-item>
+        <ion-label position="fixed">Age </ion-label>
+        <ion-input formControlName="age" type="number" pattern="[0-9]*" placeholder="Enter age"></ion-input>
+        <ion-select formControlName="period" value="years" okText="Select" cancelText="Cancel">
+          <ion-select-option value="years">Years</ion-select-option>
+          <ion-select-option value="months">Months</ion-select-option>
+        </ion-select>
+        <!-- <ion-input (click)="showPicker()" value="{{ age }} {{ period }}"></ion-input> -->
+      </ion-item>
+      <ion-item *ngIf="batsForm.get('age').dirty && errorControl.age.invalid">
+        <ion-text color="danger" *ngIf="batsForm.get('age').dirty && errorControl.age.errors?.min">
+          Age must be greater than 0
+        </ion-text>
+        <ion-text color="danger" *ngIf="batsForm.get('age').dirty && errorControl.age.errors?.max">
+          Age must be less than 116
+        </ion-text>
+        <ion-text color="danger"*ngIf="batsForm.get('age').dirty && errorControl.age.errors?.required">
+          An age value is required
+        </ion-text>
+      </ion-item>
+
+
+      <ion-radio-group formControlName="penetrating" >
+        <ion-list-header>
+          <ion-label>Penetrating injury</ion-label>
+        </ion-list-header>
+    
+        <ion-item>
+          <ion-label>Yes</ion-label>
+          <ion-radio slot="start" value="yes"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>No</ion-label>
+          <ion-radio slot="start" value="no" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+  
+      <ion-radio-group formControlName="velocity" >
+        <ion-list-header>
+          <ion-label>High velocity trauma</ion-label>
+        </ion-list-header>
+    
+        <ion-item>
+          <ion-label>Yes</ion-label>
+          <ion-radio slot="start" value="yes"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>No</ion-label>
+          <ion-radio slot="start" value="no" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+
+    <ion-item>
+      <ion-label position="fixed">Systolic BP</ion-label>
+      <ion-input formControlName="bp" type="number" pattern="[0-9]*"  min="0" max="240" required></ion-input>
+    </ion-item>
+    <ion-item *ngIf="batsForm.get('bp').dirty && errorControl.bp.invalid">
+      <ion-text color="danger" *ngIf="batsForm.get('bp').dirty && errorControl.bp.errors?.min">
+        BP must be greater than 0mmHg
+      </ion-text>
+      <ion-text color="danger" *ngIf="batsForm.get('bp').dirty  && errorControl.bp.errors?.max">
+        BP must be less than 240mmHg
+      </ion-text>
+      <ion-text color="danger"*ngIf="batsForm.get('bp').dirty && errorControl.bp.errors?.required">
+        Blood pressure value is required
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">GCS</ion-label>
+      <ion-input formControlName="gcs" type="number" pattern="[0-9]*" min="3" max="15" required></ion-input>
+    </ion-item>
+    <ion-item *ngIf="batsForm.get('gcs').dirty && errorControl.gcs.invalid">
+      <ion-text color="danger" *ngIf="batsForm.get('gcs').dirty && errorControl.gcs.errors?.min">
+        GCS must be 3 or more
+      </ion-text>
+      <ion-text color="danger" *ngIf="batsForm.get('gcs').dirty  && errorControl.gcs.errors?.max">
+        GCS must be 15 or less
+      </ion-text>
+      <ion-text color="danger"*ngIf="batsForm.get('gcs').dirty && errorControl.gcs.errors?.required">
+        A GCS is required
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Resp Rate</ion-label>
+      <ion-input formControlName="rr" type="number" pattern="[0-9]*" min="0" max="60" required></ion-input>
+    </ion-item>
+    <ion-item *ngIf="batsForm.get('rr').dirty && errorControl.rr.invalid">
+      <ion-text color="danger" *ngIf="batsForm.get('rr').dirty && errorControl.rr.errors?.min">
+        Resp rate must be greater than 0
+      </ion-text>
+      <ion-text color="danger" *ngIf="batsForm.get('rr').dirty  && errorControl.rr.errors?.max">
+        Resp rate must be less than 60
+      </ion-text>
+      <ion-text color="danger"*ngIf="batsForm.get('rr').dirty && errorControl.rr.errors?.required">
+        A respiratory rate is required
+      </ion-text>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label position="fixed">SpO2 on air</ion-label>
+      <ion-input formControlName="spo2" type="number" pattern="[0-9]*" min="50" max="100" required></ion-input>
+    </ion-item>
+    <ion-item *ngIf="batsForm.get('spo2').dirty && errorControl.spo2.invalid">
+      <ion-text color="danger" *ngIf="batsForm.get('spo2').dirty && errorControl.spo2.errors?.min">
+        SpO2 be greater than 50%
+      </ion-text>
+      <ion-text color="danger" *ngIf="batsForm.get('spo2').dirty  && errorControl.spo2.errors?.max">
+        SpO2 must be 100% or less
+      </ion-text>
+      <ion-text color="danger"*ngIf="batsForm.get('spo2').dirty && errorControl.spo2.errors?.required">
+        SpO2 is required when a respiratory rate is not provided
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Heart Rate </ion-label>
+      <ion-input formControlName="hr" type="number" pattern="[0-9]*" min="0" max="180" id="hr" required></ion-input>
+    </ion-item>
+    <ion-item *ngIf="batsForm.get('hr').dirty && errorControl.hr.invalid">
+      <ion-text color="danger" *ngIf="batsForm.get('hr').dirty && errorControl.hr.errors?.min">
+        Heart rate must be greater than 0
+      </ion-text>
+      <ion-text color="danger" *ngIf="batsForm.get('hr').dirty && errorControl.hr.errors?.max">
+        Heart rate must be less than 180
+      </ion-text>
+      <ion-text color="danger"*ngIf="batsForm.get('hr').dirty && errorControl.hr.errors?.required">
+        Heart rate value is required
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Callsign</ion-label>
+      <ion-input formControlName="callsign" type="number" pattern="[0-9]*" required placeholder="Enter vehicle callsign"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="batsForm.get('callsign').dirty && errorControl.callsign.invalid">
+      <ion-text color="danger"*ngIf="batsForm.get('callsign').dirty && errorControl.callsign.errors?.required">
+        Your vehicle callsign is required
+      </ion-text>
+    </ion-item>
+    
+    <div class="ion-padding">
+      <ion-button  expand="full" type="submit" class="ion-no-margin" [disabled]="!batsForm.valid">Calculate Score</ion-button>
+    </div>
+  </form>
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "formtest",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
